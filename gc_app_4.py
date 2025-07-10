@@ -8,15 +8,7 @@ import time
 import hashlib
 
 # 하드코딩된 Snowflake 로그인 정보
-SNOWFLAKE_CONFIG = {
-    'account': 'NEXON-GLOBAL',
-    'user': 'jaugu1908@nexon.co.kr',
-    'role': 'EXPERT_USER',
-    'warehouse': 'DEFAULT_WAREHOUSE',
-    'database': 'GCT_TESTING',
-    'schema': 'PUBLIC',
-    'authenticator': 'externalbrowser'  # 비밀번호 인증 사용
-}
+
 
 # 페이지 설정
 st.set_page_config(page_title="일본어 문법 검사기", page_icon="⛩️")
