@@ -5,7 +5,7 @@ import tempfile
 from pathlib import Path
 import time
 
-st.set_page_config(page_title="⛩️ 일본어 스펠링 검사기", page_icon="⛩️")
+st.set_page_config(page_title="⛩️ 일본어 스펠링 검사기")
 st.markdown("### ⛩️ 일본어 스펠링 검사기  \n(Ollama LLM 기반)")
 
 def build_ollama_prompt(text):
