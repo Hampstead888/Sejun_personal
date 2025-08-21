@@ -1,0 +1,308 @@
+import React, { useState } from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
+
+export default function LanguageModelDetailedCharts() {
+  const [selectedLanguage, setSelectedLanguage] = useState('번체');
+
+  // 데이터 정의
+  const evaluationMetrics = [
+    '정확성(번역)',
+    '유창성/전달력(현지화)',
+    '문법/철자',
+    '수식(태그, 변수등)',
+    '리뷰'
+  ];
+
+  const models = ["claude-4-sonnet", "deepseek-r1", "gemma-7b", "llama4-maverick", "openai-gpt-4.1"];
+  
+  const detailedData = {
+    "번체": {
+      "claude-4-sonnet": {"정확성(번역)": 1.00, "유창성/전달력(현지화)": 1.00, "문법/철자": 1.00, "수식(태그, 변수등)": 3.00, "리뷰": 0.00},
+      "deepseek-r1": {"정확성(번역)": 1.00, "유창성/전달력(현지화)": 0.00, "문법/철자": 1.00, "수식(태그, 변수등)": 0.00, "리뷰": 0.00},
+      "gemma-7b": {"정확성(번역)": 0.00, "유창성/전달력(현지화)": 0.00, "문법/철자": 0.00, "수식(태그, 변수등)": 0.00, "리뷰": 0.00},
+      "llama4-maverick": {"정확성(번역)": 1.00, "유창성/전달력(현지화)": 0.00, "문법/철자": 0.00, "수식(태그, 변수등)": 0.00, "리뷰": 0.00},
+      "openai-gpt-4.1": {"정확성(번역)": 2.00, "유창성/전달력(현지화)": 2.00, "문법/철자": 2.00, "수식(태그, 변수등)": 3.00, "리뷰": 0.00}
+    },
+    "간체": {
+      "claude-4-sonnet": {"정확성(번역)": 2.00, "유창성/전달력(현지화)": 1.00, "문법/철자": 2.00, "수식(태그, 변수등)": 3.00, "리뷰": 1.00},
+      "deepseek-r1": {"정확성(번역)": 2.00, "유창성/전달력(현지화)": 2.00, "문법/철자": 3.00, "수식(태그, 변수등)": 3.00, "리뷰": 2.00},
+      "gemma-7b": {"정확성(번역)": 0.00, "유창성/전달력(현지화)": 0.00, "문법/철자": 0.00, "수식(태그, 변수등)": 0.00, "리뷰": 0.00},
+      "llama4-maverick": {"정확성(번역)": 1.00, "유창성/전달력(현지화)": 1.00, "문법/철자": 1.00, "수식(태그, 변수등)": 1.00, "리뷰": 0.00},
+      "openai-gpt-4.1": {"정확성(번역)": 3.00, "유창성/전달력(현지화)": 2.00, "문법/철자": 3.00, "수식(태그, 변수등)": 2.00, "리뷰": 2.00}
+    },
+    "일본어": {
+      "claude-4-sonnet": {"정확성(번역)": 2.00, "유창성/전달력(현지화)": 1.00, "문법/철자": 2.00, "수식(태그, 변수등)": 3.00, "리뷰": 2.00},
+      "deepseek-r1": {"정확성(번역)": 2.00, "유창성/전달력(현지화)": 1.00, "문법/철자": 0.00, "수식(태그, 변수등)": 0.00, "리뷰": 0.00},
+      "gemma-7b": {"정확성(번역)": 0.00, "유창성/전달력(현지화)": 0.00, "문법/철자": 0.00, "수식(태그, 변수등)": 0.00, "리뷰": 0.00},
+      "llama4-maverick": {"정확성(번역)": 1.00, "유창성/전달력(현지화)": 2.00, "문법/철자": 1.00, "수식(태그, 변수등)": 1.00, "리뷰": 1.00},
+      "openai-gpt-4.1": {"정확성(번역)": 2.00, "유창성/전달력(현지화)": 2.00, "문법/철자": 3.00, "수식(태그, 변수등)": 3.00, "리뷰": 0.00}
+    },
+    "포르투갈어": {
+      "claude-4-sonnet": {"정확성(번역)": 1.00, "유창성/전달력(현지화)": 2.00, "문법/철자": 3.00, "수식(태그, 변수등)": 2.00, "리뷰": 2.00},
+      "deepseek-r1": {"정확성(번역)": 1.00, "유창성/전달력(현지화)": 2.00, "문법/철자": 3.00, "수식(태그, 변수등)": 2.00, "리뷰": 1.00},
+      "gemma-7b": {"정확성(번역)": 0.00, "유창성/전달력(현지화)": 0.00, "문법/철자": 0.00, "수식(태그, 변수등)": 1.00, "리뷰": 0.00},
+      "llama4-maverick": {"정확성(번역)": 1.00, "유창성/전달력(현지화)": 2.00, "문법/철자": 2.00, "수식(태그, 변수등)": 3.00, "리뷰": 1.00},
+      "openai-gpt-4.1": {"정확성(번역)": 2.00, "유창성/전달력(현지화)": 2.00, "문법/철자": 3.00, "수식(태그, 변수등)": 3.00, "리뷰": 1.00}
+    },
+    "프랑스어": {
+      "claude-4-sonnet": {"정확성(번역)": 2.00, "유창성/전달력(현지화)": 1.00, "문법/철자": 2.00, "수식(태그, 변수등)": 3.00, "리뷰": 1.00},
+      "deepseek-r1": {"정확성(번역)": 2.00, "유창성/전달력(현지화)": 2.00, "문법/철자": 3.00, "수식(태그, 변수등)": 2.00, "리뷰": 1.00},
+      "gemma-7b": {"정확성(번역)": 0.00, "유창성/전달력(현지화)": 0.00, "문법/철자": 0.00, "수식(태그, 변수등)": 0.00, "리뷰": 0.00},
+      "llama4-maverick": {"정확성(번역)": 1.00, "유창성/전달력(현지화)": 0.00, "문법/철자": 0.00, "수식(태그, 변수등)": 3.00, "리뷰": 0.00},
+      "openai-gpt-4.1": {"정확성(번역)": 2.00, "유창성/전달력(현지화)": 1.00, "문법/철자": 2.00, "수식(태그, 변수등)": 3.00, "리뷰": 0.00}
+    },
+    "스페인어": {
+      "claude-4-sonnet": {"정확성(번역)": 1.00, "유창성/전달력(현지화)": 1.00, "문법/철자": 2.00, "수식(태그, 변수등)": 3.00, "리뷰": 0.00},
+      "deepseek-r1": {"정확성(번역)": 1.00, "유창성/전달력(현지화)": 1.00, "문법/철자": 2.00, "수식(태그, 변수등)": 3.00, "리뷰": 1.00},
+      "gemma-7b": {"정확성(번역)": 0.00, "유창성/전달력(현지화)": 0.00, "문법/철자": 0.00, "수식(태그, 변수등)": 0.00, "리뷰": 0.00},
+      "llama4-maverick": {"정확성(번역)": 2.00, "유창성/전달력(현지화)": 1.00, "문법/철자": 2.00, "수식(태그, 변수등)": 3.00, "리뷰": 1.00},
+      "openai-gpt-4.1": {"정확성(번역)": 2.00, "유창성/전달력(현지화)": 2.00, "문법/철자": 2.00, "수식(태그, 변수등)": 3.00, "리뷰": 0.00}
+    },
+    "영어": {
+      "claude-4-sonnet": {"정확성(번역)": 2.20, "유창성/전달력(현지화)": 1.80, "문법/철자": 2.80, "수식(태그, 변수등)": 2.40, "리뷰": 0.60},
+      "deepseek-r1": {"정확성(번역)": 0.80, "유창성/전달력(현지화)": 2.00, "문법/철자": 2.60, "수식(태그, 변수등)": 2.40, "리뷰": 1.00},
+      "gemma-7b": {"정확성(번역)": 0.00, "유창성/전달력(현지화)": 0.00, "문법/철자": 0.80, "수식(태그, 변수등)": 0.60, "리뷰": 0.00},
+      "llama4-maverick": {"정확성(번역)": 1.20, "유창성/전달력(현지화)": 2.00, "문법/철자": 2.40, "수식(태그, 변수등)": 2.00, "리뷰": 0.40},
+      "openai-gpt-4.1": {"정확성(번역)": 1.80, "유창성/전달력(현지화)": 1.80, "문법/철자": 2.80, "수식(태그, 변수등)": 2.20, "리뷰": 0.80}
+    }
+  };
+
+  const languages = Object.keys(detailedData);
+
+  // 차트 데이터 준비
+  const prepareChartData = (language) => {
+    const data = evaluationMetrics.map(metric => {
+      const item = { metric };
+      models.forEach(model => {
+        if (detailedData[language][model]) {
+          item[model] = detailedData[language][model][metric] || 0;
+        }
+      });
+      return item;
+    });
+    return data;
+  };
+
+  // 레이더 차트 데이터 준비
+  const prepareRadarData = (language) => {
+    return models.filter(model => detailedData[language][model]).map(model => {
+      const data = { model };
+      evaluationMetrics.forEach(metric => {
+        data[metric] = detailedData[language][model][metric] || 0;
+      });
+      return data;
+    });
+  };
+
+  // 모델별 색상
+  const modelColors = {
+    "claude-4-sonnet": "#2563eb",
+    "deepseek-r1": "#dc2626",
+    "gemma-7b": "#f59e0b",
+    "llama4-maverick": "#10b981",
+    "openai-gpt-4.1": "#8b5cf6"
+  };
+
+  // 커스텀 툴팁
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-white p-3 border border-gray-300 rounded shadow-lg">
+          <p className="font-bold mb-2">{`${label}`}</p>
+          {payload.map((entry, index) => (
+            <p key={index} style={{ color: entry.color }}>
+              {`${entry.name}: ${entry.value.toFixed(2)}`}
+            </p>
+          ))}
+        </div>
+      );
+    }
+    return null;
+  };
+
+  // 언어별 인사이트 생성
+  const getInsights = (language) => {
+    const insights = [];
+    const langData = detailedData[language];
+    
+    // 각 평가 항목별 최고 점수 모델 찾기
+    evaluationMetrics.forEach(metric => {
+      let maxScore = -1;
+      let maxModel = '';
+      
+      Object.keys(langData).forEach(model => {
+        const score = langData[model][metric];
+        if (score > maxScore) {
+          maxScore = score;
+          maxModel = model;
+        }
+      });
+      
+      if (maxScore > 0) {
+        insights.push(`${metric}: ${maxModel} (${maxScore.toFixed(1)}점)`);
+      }
+    });
+    
+    return insights;
+  };
+
+  return (
+    <div className="w-full h-full flex flex-col p-6 bg-gray-50">
+      <h2 className="text-2xl font-bold mb-6 text-gray-800">언어별 모델 상세 평가 점수 분석</h2>
+      
+      {/* 언어 탭 */}
+      <div className="flex space-x-2 mb-6 overflow-x-auto">
+        {languages.map(lang => (
+          <button
+            key={lang}
+            onClick={() => setSelectedLanguage(lang)}
+            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+              selectedLanguage === lang 
+                ? 'bg-blue-600 text-white' 
+                : 'bg-white text-gray-700 hover:bg-gray-100'
+            }`}
+          >
+            {lang}
+          </button>
+        ))}
+      </div>
+
+      {/* 그래프 영역 */}
+      <div className="flex flex-col lg:flex-row gap-6 flex-1">
+        {/* 막대 그래프 */}
+        <div className="flex-1 bg-white p-4 rounded-lg shadow">
+          <h3 className="text-lg font-semibold mb-4">{selectedLanguage} - 평가 항목별 점수</h3>
+          <ResponsiveContainer width="100%" height={400}>
+            <BarChart
+              data={prepareChartData(selectedLanguage)}
+              margin={{ top: 20, right: 30, left: 20, bottom: 100 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis 
+                dataKey="metric" 
+                angle={-45}
+                textAnchor="end"
+                height={100}
+                interval={0}
+                tick={{ fontSize: 12 }}
+              />
+              <YAxis 
+                domain={[0, 3]}
+                ticks={[0, 0.5, 1, 1.5, 2, 2.5, 3]}
+              />
+              <Tooltip content={<CustomTooltip />} />
+              <Legend 
+                wrapperStyle={{ paddingTop: '20px' }}
+                iconType="rect"
+              />
+              
+              {models.map((model) => (
+                detailedData[selectedLanguage][model] && (
+                  <Bar 
+                    key={model} 
+                    dataKey={model} 
+                    fill={modelColors[model]}
+                    name={model}
+                  />
+                )
+              ))}
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* 레이더 차트 */}
+        <div className="flex-1 bg-white p-4 rounded-lg shadow">
+          <h3 className="text-lg font-semibold mb-4">{selectedLanguage} - 모델별 종합 비교</h3>
+          <ResponsiveContainer width="100%" height={400}>
+            <RadarChart data={prepareRadarData(selectedLanguage)}>
+              <PolarGrid />
+              <PolarAngleAxis dataKey="model" tick={{ fontSize: 12 }} />
+              <PolarRadiusAxis domain={[0, 3]} tick={{ fontSize: 10 }} />
+              {evaluationMetrics.map((metric, index) => (
+                <Radar
+                  key={metric}
+                  name={metric}
+                  dataKey={metric}
+                  stroke={['#2563eb', '#dc2626', '#f59e0b', '#10b981', '#8b5cf6'][index]}
+                  fill={['#2563eb', '#dc2626', '#f59e0b', '#10b981', '#8b5cf6'][index]}
+                  fillOpacity={0.3}
+                />
+              ))}
+              <Tooltip />
+              <Legend wrapperStyle={{ fontSize: '12px' }} />
+            </RadarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      {/* 인사이트 */}
+      <div className="mt-6 p-4 bg-white rounded-lg shadow">
+        <h3 className="font-bold mb-3">{selectedLanguage} 주요 인사이트</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <h4 className="font-semibold text-sm mb-2">각 평가 항목 최고 점수:</h4>
+            <ul className="text-sm text-gray-700 space-y-1">
+              {getInsights(selectedLanguage).map((insight, index) => (
+                <li key={index}>• {insight}</li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-semibold text-sm mb-2">전반적 특징:</h4>
+            <ul className="text-sm text-gray-700 space-y-1">
+              {selectedLanguage === '번체' && (
+                <>
+                  <li>• OpenAI GPT-4.1이 대부분 항목에서 우수한 성능</li>
+                  <li>• 수식 처리는 Claude와 OpenAI가 동등하게 우수</li>
+                  <li>• 리뷰 점수는 모든 모델이 0점</li>
+                </>
+              )}
+              {selectedLanguage === '간체' && (
+                <>
+                  <li>• DeepSeek-r1이 문법/철자와 리뷰에서 최고 점수</li>
+                  <li>• OpenAI GPT-4.1이 정확성에서 가장 우수</li>
+                  <li>• 모든 주요 모델이 비교적 균형잡힌 성능</li>
+                </>
+              )}
+              {selectedLanguage === '일본어' && (
+                <>
+                  <li>• Claude-4-Sonnet이 리뷰 항목에서 우수</li>
+                  <li>• Llama4-Maverick이 유창성에서 좋은 성능</li>
+                  <li>• DeepSeek-r1은 문법/철자가 약점</li>
+                </>
+              )}
+              {selectedLanguage === '포르투갈어' && (
+                <>
+                  <li>• 대부분 모델이 비교적 균등한 성능</li>
+                  <li>• 문법/철자 항목에서 전반적으로 높은 점수</li>
+                  <li>• Claude-4-Sonnet이 리뷰에서 최고 점수</li>
+                </>
+              )}
+              {selectedLanguage === '프랑스어' && (
+                <>
+                  <li>• DeepSeek-r1이 유창성과 문법에서 우수</li>
+                  <li>• 수식 처리는 여러 모델이 동등하게 우수</li>
+                  <li>• Llama4-Maverick은 유창성과 문법이 약점</li>
+                </>
+              )}
+              {selectedLanguage === '스페인어' && (
+                <>
+                  <li>• Llama4-Maverick이 정확성에서 최고 점수</li>
+                  <li>• 수식 처리는 대부분 모델이 우수</li>
+                  <li>• 전반적으로 균형잡힌 성능 분포</li>
+                </>
+              )}
+              {selectedLanguage === '영어' && (
+                <>
+                  <li>• Claude-4-Sonnet이 정확성과 문법에서 최고</li>
+                  <li>• DeepSeek-r1이 유창성과 리뷰에서 우수</li>
+                  <li>• 영어가 다른 언어보다 전반적으로 높은 점수</li>
+                </>
+              )}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
